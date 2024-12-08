@@ -1,9 +1,9 @@
 fn greeting(name: &str) -> Result<String, String> {
     // Check if the name is empty. If so, raise an error message.
     if name.is_empty() {
-        return Err("Name is required to have at least one character.".to_string());
+        return Err("ERROR: Name is required to have at least one character.".to_string());
     } else if name.len() > 20 {
-        return Err("Name cannot be longer than 20 characters.".to_string());
+        return Err("ERROR: Name cannot be longer than 20 characters.".to_string());
     }
 
     return Ok(format!("Hello, {}!", name));
@@ -41,14 +41,14 @@ mod tests {
 
     #[test]
     fn test_greeting_empty_name() {
-        let expected: &str = "Name is required to have at least one character.";
+        let expected: &str = "ERROR: Name is required to have at least one character.";
         let actual:Result<String, String> = greeting("");
         assert_eq!(expected, actual.err().unwrap());
     }
 
     #[test]
     fn test_greeting_long_name() {
-        let expected: &str = "Name cannot be longer than 20 characters.";
+        let expected: &str = "ERROR: Name cannot be longer than 20 characters.";
         let actual:Result<String, String> = greeting("ChrisChrisChrisChrisChris");
         assert_eq!(expected, actual.err().unwrap());
     }
