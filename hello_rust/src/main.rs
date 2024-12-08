@@ -1,30 +1,23 @@
+fn greeting(name: &str) -> String {
+    let format_greeting: String = format!("Hello, {}!", name);
+    return format_greeting;
+}
+
 fn main() {
-    println!("Hello, world!");
+    let name: &str = "Chris";
+    let greeting_message: String = greeting(name);
+    println!("{}", greeting_message);
+}
 
-    // Rust's primitive data types:
-    // Integer types: i8, i16, i32, i64, u8, u16, u32, u64, isize, usize
-    // Floating-point types: f32, f64
-    // Boolean type: bool
-    // Character type: char
 
-    // Variables
-    let x: i32;
-    let y: i32;
-    let z: i32;
-    let a: bool;
-    let b: char;
-    let c: f64;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-    // Assignments
-    x = 5;
-    y = 10;
-    println!("x: {}, y: {}", x, y);
-
-    z = x + y;
-    println!("z: {}", z);
-    
-    a = true;
-    b = 'A';
-    c = 3.14;
-    println!("a: {}, b: {}, c: {}", a, b, c);
+    #[test]
+    fn test_greeting() {
+        let expected: &str = "Hello, Chris!";
+        let actual: String = greeting("Chris");
+        assert_eq!(expected, actual);
+    }
 }
