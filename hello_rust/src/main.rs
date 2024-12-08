@@ -25,6 +25,18 @@ fn main() {
             Err(error) => println!("{}", error)
         }
     }
+
+    // Ownership and Borrowing
+    let s1 = String::from("hello");
+    let len = s1.len(); // Immutably borrowed.
+    // s1 is still valid here, because we have not mutated it.
+    println!("The length of '{}' is {}.", s1, len);
+    
+    // Mutable borrowing
+    let mut s2 = String::from("hello");
+
+    s2.push_str(", world!"); // Mutably borrowed.
+    println!("{}", s2);
 }
 
 
