@@ -10,30 +10,20 @@ fn greeting(name: &str) -> Result<String, String> {
 }
 
 fn main() {
-    // Create a variable for a valid name, empty name, and a long name.
-    let name: &str = "Chris";
-    let empty_name: &str = "";
-    let long_name: &str = "ChrisChrisChrisChrisChris";
+    // Create an array of names.
+    let names: [&str; 3]= [ 
+        "Chris", 
+        "", 
+        "ChrisChrisChrisChrisChris" 
+    ];
 
-    // Create a counter variable
-    let mut counter: i32 = 0;
-
-    // Loop through the names and print the greeting message.
-    loop {
-        // Check if the counter is 0, 1, or 2.
-        if counter == 0 {
-            println!("{}", greeting(name).unwrap());
-        } else if counter == 1 {
-            println!("{}", greeting(empty_name).err().unwrap());
-        } else if counter == 2 {
-            println!("{}", greeting(long_name).err().unwrap());
-        } else {
-            // Break the loop if the counter is greater than 2.
-            break;
+    // Iterate over the array of names.
+    for name in names.iter() {
+        // Call the greeting function and print the result.
+        match greeting(name) {
+            Ok(message) => println!("{}", message),
+            Err(error) => println!("{}", error)
         }
-
-        // Increment the counter by 1.
-        counter += 1;
     }
 }
 
