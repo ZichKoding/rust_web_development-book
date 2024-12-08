@@ -10,20 +10,31 @@ fn greeting(name: &str) -> Result<String, String> {
 }
 
 fn main() {
+    // Create a variable for a valid name, empty name, and a long name.
     let name: &str = "Chris";
-    let greeting_message: Result<String, String> = greeting(name);
-    println!("{}", greeting_message.unwrap());
+    let empty_name: &str = "";
+    let long_name: &str = "ChrisChrisChrisChrisChris";
 
-    // Name is empty, so this will raise an error.
-    let name: &str = "";
-    let greeting_message: Result<String, String> = greeting(name);
-    println!("{}", greeting_message.err().unwrap());
+    // Create a counter variable
+    let mut counter: i32 = 0;
 
-    // Name is too long, so this will raise an error.
-    let name: &str = "ChrisChrisChrisChrisChris";
-    let greeting_message: Result<String, String> = greeting(name);
-    println!("{}", greeting_message.err().unwrap());
+    // Loop through the names and print the greeting message.
+    loop {
+        // Check if the counter is 0, 1, or 2.
+        if counter == 0 {
+            println!("{}", greeting(name).unwrap());
+        } else if counter == 1 {
+            println!("{}", greeting(empty_name).err().unwrap());
+        } else if counter == 2 {
+            println!("{}", greeting(long_name).err().unwrap());
+        } else {
+            // Break the loop if the counter is greater than 2.
+            break;
+        }
 
+        // Increment the counter by 1.
+        counter += 1;
+    }
 }
 
 
