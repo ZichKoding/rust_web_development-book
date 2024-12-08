@@ -37,6 +37,19 @@ fn main() {
 
     s2.push_str(", world!"); // Mutably borrowed.
     println!("{}", s2);
+
+    let mut x = 5;
+
+    // Immutable borrow
+    let y = &x; // y is an immutable reference to x.
+    // let z = &mut x; // This will cause a compile-time error if y is still in scope.
+    println!("y: {}", y); 
+
+    // Mutable borrow
+    let z = &mut x; // z is a mutable reference to x. This is allowed since y has been used with the println! statement.
+
+    *z += 1; // Dereference z and increment the value.
+    println!("z: {}", z);
 }
 
 
