@@ -6,7 +6,17 @@ fn greeting(name: &str) -> Result<String, String> {
         return Err("ERROR: Name cannot be longer than 20 characters.".to_string());
     }
 
-    return Ok(format!("Hello, {}!", name));
+    Ok(format!("Hello, {}!", name))
+}
+
+fn string_slice(str_to_slice: &str, start: usize, end: usize) -> String {
+    // Check if the start index is greater than the end index.
+    if start > end {
+        return "ERROR: Your start index must be less than your end index.".to_string();
+    } else if end > str_to_slice.len() {
+        return "ERROR: Your start end index must be less than or equal to the length of the string.".to_string();
+    }
+    str_to_slice[start..end].to_string()
 }
 
 fn main() {
@@ -17,6 +27,8 @@ fn main() {
         "ChrisChrisChrisChrisChris" 
     ];
 
+    let mut counter: usize = 0;
+
     // Iterate over the array of names.
     for name in names.iter() {
         // Call the greeting function and print the result.
@@ -24,6 +36,12 @@ fn main() {
             Ok(message) => println!("{}", message),
             Err(error) => println!("{}", error)
         }
+
+        // Call the string_slice function and print the result.
+        let end= name.len();
+        let result = string_slice(name, counter, end);
+        println!("{}", result);
+        counter += 1;
     }
 
     // Ownership and Borrowing
@@ -76,5 +94,35 @@ mod tests {
         let expected: &str = "ERROR: Name cannot be longer than 20 characters.";
         let actual:Result<String, String> = greeting("ChrisChrisChrisChrisChris");
         assert_eq!(expected, actual.err().unwrap());
+    }
+
+    #[test]
+    fn test_string_slice() {
+        let variable: &str = "Hello, world!";
+        let start = 7;
+        let end = 13;
+        let expected: &str = "world!";
+        let actual: String = string_slice(variable, start, end);
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_string_slice_start_is_greater_than_end() {
+        let variable: &str = "Hello, world!";
+        let start = 6;
+        let end = 5;
+        let expected: &str = "ERROR: Your start index must be less than your end index.";
+        let actual: String = string_slice(variable, start, end);
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_string_slice_end_is_greater_than_length() {
+        let variable: &str = "Hello, world!";
+        let start = 7;
+        let end = 20;
+        let expected: &str = "ERROR: Your start end index must be less than or equal to the length of the string.";
+        let actual: String = string_slice(variable, start, end);
+        assert_eq!(expected, actual);
     }
 }
